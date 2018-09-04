@@ -1,0 +1,91 @@
+﻿<CheckBox x:Class="GhostV2.Controls.ButtonSelect"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="MainSelectButtonControl">
+
+    <CheckBox.Style>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+        </Style>
+    </CheckBox.Style>
+    <CheckBox.Template>
+        <ControlTemplate  TargetType="{x:Type CheckBox}">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="ToolBarImage" Style="{StaticResource ButtonIcon}" />
+                <ContentPresenter>
+
+                    <ContentPresenter.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" Style="{StaticResource ButtonText}" Margin="5,0,0,0" />
+                        </DataTemplate>
+                    </ContentPresenter.ContentTemplate>
+                </ContentPresenter>
+            </StackPanel>
+
+            <ControlTemplate.Triggers>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsPressed" Value="True" />
+                        <Condition Property="IsChecked" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding SelectedActiveImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsPressed" Value="True" />
+                        <Condition Property="IsChecked" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding UnSelectedActiveImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsChecked" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding UnSelectedInactiveImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsChecked" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding SelectedInactiveImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True" />
+                        <Condition Property="IsChecked" Value="False" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding UnSelectedHoverImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True" />
+                        <Condition Property="IsChecked" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="ToolBarImage" Property="Source" Value="{Binding SelectedHoverImageFileName, ElementName=MainSelectButtonControl}" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </CheckBox.Template>
+
+    <CheckBox.Resources>
+    </CheckBox.Resources>
+</CheckBox>

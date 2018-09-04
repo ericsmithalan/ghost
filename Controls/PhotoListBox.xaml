@@ -1,0 +1,327 @@
+﻿<UserControl
+    x:Class="Ghost.Controls.PhotoListBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ghost="clr-namespace:Ghost.Controls"
+    Width="450"
+    Loaded="UserControl_Loaded" SnapsToDevicePixels="True">
+
+    <UserControl.Resources>
+
+        <ObjectDataProvider x:Key="Photos" ObjectType="{x:Type ghost:PhotoCollection}" />
+        <ghost:UriToBitmapConverter40 x:Key="UriToBitmapConverter" />
+
+        <Storyboard
+            x:Key="ExpandStoryboard">
+            <DoubleAnimationUsingKeyFrames
+                BeginTime="00:00:00"
+                Completed="ExpandStoryboard_Completed"
+                AccelerationRatio="1"
+                SpeedRatio="3"
+                Storyboard.TargetName="PhotosListBox"
+                Storyboard.TargetProperty="(FrameworkElement.Height)">
+
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="40" />
+                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="300" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard
+            x:Key="CollapseStoryboard">
+            <DoubleAnimationUsingKeyFrames
+                BeginTime="00:00:00"
+                Completed="CollapseStoryboard_Completed"
+                AccelerationRatio="1"
+                SpeedRatio="3"
+                Storyboard.TargetName="PhotosListBox"
+                Storyboard.TargetProperty="(FrameworkElement.Height)">
+
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="300" />
+                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="40" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Style
+            x:Key="WrapPanelStyle"
+            TargetType="{x:Type WrapPanel}">
+
+            <Setter
+                Property="Width"
+                Value="390" />
+            <Setter
+                Property="ItemHeight"
+                Value="40" />
+            <Setter
+                Property="ItemWidth"
+                Value="40" />
+        </Style>
+
+        <Style
+            x:Key="StackPanelStyle"
+            TargetType="{x:Type StackPanel}">
+
+            <Setter
+                Property="VerticalAlignment"
+                Value="Top" />
+            <Setter
+                Property="DataContext"
+                Value="{StaticResource Photos}" />
+            <Setter
+                Property="Orientation"
+                Value="Vertical" />
+            <Setter
+                Property="HorizontalAlignment"
+                Value="Left" />
+        </Style>
+
+        <Style
+            x:Key="PhotoThumbnailBorderStyle"
+            TargetType="{x:Type Border}">
+
+            <Setter
+                Property="Background"
+                Value="#ffffff" />
+            <Setter
+                Property="BorderBrush"
+                Value="#8a8e93" />
+            <Setter
+                Property="BorderThickness"
+                Value="1,1,1,1" />
+            <Setter
+                Property="Margin"
+                Value="5,5,5,5" />
+        </Style>
+
+        <Style
+            x:Key="ProgressIndicatorBorder"
+            TargetType="{x:Type Border}">
+
+            <Setter
+                Property="BorderBrush"
+                Value="White" />
+            <Setter
+                Property="BorderThickness"
+                Value="1" />
+            <Setter
+                Property="Background"
+                Value="#e9ecf0" />
+            <Setter
+                Property="Width"
+                Value="450" />
+            <Setter
+                Property="Height"
+                Value="40" />
+            <Setter
+                Property="Visibility"
+                Value="Hidden" />
+            <Setter
+                Property="HorizontalAlignment"
+                Value="Center" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+        </Style>
+
+        <!-- THUMBNAIL DATA TEMPLATE -->
+        <DataTemplate DataType="{x:Type ghost:Photo}">
+            <ghost:Bitmap Source="{Binding Path=Source, Converter={StaticResource UriToBitmapConverter}}" />
+        </DataTemplate>
+
+        <!-- STYLE FOR TOOLBAR FILE ITEM -->
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                        <Border
+                            SnapsToDevicePixels="True"
+                            x:Name="border_imageThumb"
+                            Style="{StaticResource PhotoThumbnailBorderStyle}">
+
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    Color="Black"
+                                    Opacity=".3"
+                                    ShadowDepth="0"
+                                    BlurRadius="3" />
+                            </Border.Effect>
+
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger
+                                Property="IsMouseOver"
+                                Value="True">
+
+                                <Setter
+                                    TargetName="border_imageThumb"
+                                    Property="BorderBrush"
+                                    Value="#2975bc" />
+                            </Trigger>
+                            <Trigger
+                                Property="IsSelected"
+                                Value="True">
+
+                                <Setter
+                                    TargetName="border_imageThumb"
+                                    Property="BorderBrush"
+                                    Value="#29bc52" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <EventSetter
+                Event="Selected"
+                Handler="ListItemSelected" />
+            <EventSetter
+                Event="MouseEnter"
+                Handler="ListItemMouseOver" />
+            <EventSetter
+                Event="MouseMove"
+                Handler="ListItemMouseMove" />
+            <EventSetter
+                Event="MouseLeave"
+                Handler="ListItemMouseOut" />
+        </Style>
+
+        <!-- REMOVES DOTTED RECTANGLE FOCUS IN WRAPPANEL -->
+        <Style TargetType="{x:Type ItemsControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <WrapPanel SnapsToDevicePixels="True" IsItemsHost="True" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <!-- MASTER CONTENT -->
+    <Canvas>
+
+        <DockPanel
+            Width="450"
+            SnapsToDevicePixels="True"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
+
+            <ghost:ButtonImage
+                x:Name="OpenButton"
+                SnapsToDevicePixels="True"
+                DockPanel.Dock="Left"
+                VerticalAlignment="Top"
+                InactiveImageFileName="icon_image_blue.png"
+                ActiveImageFileName="icon_image_click_blue.png"
+                HoverImageFileName="icon_image_hover_blue.png"
+                ClickButton="OpenFileViewer"
+                Margin="0,10,10,0" />
+
+            <StackPanel
+                Width="390"
+                SnapsToDevicePixels="True"
+                DockPanel.Dock="Left"
+                x:Name="stackPanel_listBox"
+                Style="{StaticResource StackPanelStyle}">
+
+                <Border
+                    BorderBrush="#cad1d9"
+                    BorderThickness="1,1,1,1"
+                    SnapsToDevicePixels="True"
+                    Margin="0">
+
+                    <Border.Background>
+
+                        <LinearGradientBrush
+                            EndPoint="0.504,1.5"
+                            StartPoint="0.504,0.03">
+                            <GradientStop
+                                Color="#d7dce3"
+                                Offset="0" />
+                            <GradientStop
+                                Color="#e2e5ea"
+                                Offset="0.567" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <ListBox
+                        SnapsToDevicePixels="True"
+                    Name="PhotosListBox"
+                    SelectionMode="Extended"
+                    ItemsSource="{Binding}"
+                    Height="40">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBox}">
+
+                                            <Border>
+                                                <ScrollViewer
+                                                    SnapsToDevicePixels="True"
+                                                    x:Name="PhotoScrollViewer"
+                                                    HorizontalScrollBarVisibility="Hidden"
+                                                    VerticalScrollBarVisibility="Hidden">
+
+                                                    <WrapPanel
+                                                        SnapsToDevicePixels="True"
+                                                        Style="{StaticResource WrapPanelStyle}"
+                                                        IsItemsHost="True"
+                                                        Orientation="Horizontal" />
+                                                </ScrollViewer>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Style>
+                    </ListBox>
+                </Border>
+            </StackPanel>
+
+            <ghost:ButtonImage
+                DockPanel.Dock="Right"
+                SnapsToDevicePixels="True"
+                VerticalAlignment="Top"
+                x:Name="ToggleViewButton"
+                ClickButton="ToggleViewButton_ClickButton"
+                InactiveImageFileName="icon_popdown_blue.png"
+                ActiveImageFileName="icon_popdown_click_blue.png"
+                HoverImageFileName="icon_popdown_hover_blue.png"
+                Margin="10,10,0,0" />
+        </DockPanel>
+
+        <!-- PROGRESS INDICATOR -->
+        <Border
+            x:Name="LoadingMessage"
+            SnapsToDevicePixels="True"
+            Style="{StaticResource ProgressIndicatorBorder}"
+            Canvas.Top="0"
+            Canvas.Left="0">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Opacity=".2"
+                    ShadowDepth="2"
+                    RenderingBias="Quality" />
+            </Border.Effect>
+
+            <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal">
+
+                <TextBlock
+                    SnapsToDevicePixels="True"
+                    Text="loading files..."
+                    Style="{StaticResource ButtonText}"
+                    Margin="50,10,10,10" />
+                <ProgressBar
+                    SnapsToDevicePixels="True"
+                    Width="200"
+                    Height="15"
+                    IsIndeterminate="True"
+                    Margin="10" />
+            </StackPanel>
+        </Border>
+        <ghost:PhotoPreview SnapsToDevicePixels="True" x:Name="PhotoPreview" Visibility="Hidden" />
+    </Canvas>
+</UserControl>

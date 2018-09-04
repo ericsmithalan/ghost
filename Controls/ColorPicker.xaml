@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="Ghost.Controls.ColorPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" SnapsToDevicePixels="True">
+    <Canvas>
+        <Path
+            SnapsToDevicePixels="True"
+            x:Name="Path"
+            Opacity=".9"
+            Width="159.84"
+            Height="50.949"
+            Stretch="Fill"
+            StrokeThickness="1"
+            StrokeLineJoin="Round"
+            Stroke="#b1b6bf"
+            Fill="#d8dde2"
+            Data="F1 M 516.445,148.889L 750.222,148.889C 757.586,148.889 763.556,154.858 763.556,162.222L 763.556,229.778C 763.556,237.142 757.586,243.111 750.222,243.111L 516.445,243.111C 509.081,243.111 503.111,237.142 503.111,229.778L 503.111,162.222C 503.111,154.858 509.081,148.889 516.445,148.889 Z ">
+
+            <Path.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Softness="0.5"
+                    ShadowDepth="2"
+                    Opacity="0.3"
+                    Color="#FF000000"
+                    Direction="315"
+                    Noise="0" />
+            </Path.BitmapEffect>
+        </Path>
+
+        <Path
+            SnapsToDevicePixels="True"
+            x:Name="ColorRectangle"
+            Width="30"
+            Height="30"
+            Canvas.Left="10"
+            Canvas.Top="10"
+            Stretch="Fill"
+            StrokeThickness="0"
+            StrokeLineJoin="Round"
+            Stroke="#FFFFFFFF"
+            Fill="#FFF36C6C"
+            Data="F1 M 529.333,162.667L 569.778,162.667C 577.142,162.667 583.111,168.636 583.111,176L 583.111,216.445C 583.111,223.808 577.142,229.778 569.778,229.778L 529.333,229.778C 521.97,229.778 516,223.808 516,216.445L 516,176C 516,168.636 521.97,162.667 529.333,162.667 Z " />
+
+        <TextBlock
+            SnapsToDevicePixels="True"
+            Style="{StaticResource ButtonText}"
+            TextAlignment="Left"
+            Canvas.Left="48.285"
+            Text="RGB:"
+            Canvas.Top="12.654"
+            Height="15.984"
+            Width="29.97" />
+
+        <TextBlock
+            SnapsToDevicePixels="True"
+            Style="{StaticResource ButtonText}"
+            Text="WEB:"
+            TextAlignment="Left"
+            Canvas.Left="47.286"
+            Canvas.Top="26.64"
+            Width="28.971"
+            Height="13.986" />
+
+        <TextBlock
+            SnapsToDevicePixels="True"
+            Style="{StaticResource ButtonText}"
+            Text="255,255,266"
+            TextAlignment="Left"
+            x:Name="txt_rgbValues"
+            Canvas.Left="80.586"
+            Canvas.Top="12.654"
+            Height="13.986"
+            Width="86.913" />
+
+        <TextBlock
+            SnapsToDevicePixels="True"
+            Style="{StaticResource ButtonText}"
+            Text="#FFFFFF"
+            TextAlignment="Left"
+            x:Name="txt_webValues"
+            Canvas.Left="81.252"
+            Canvas.Top="26.64"
+            Width="85.914"
+            Height="13.986" />
+    </Canvas>
+</UserControl>

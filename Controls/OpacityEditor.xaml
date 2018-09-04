@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Ghost.Controls.OpacityEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ghost="clr-namespace:Ghost.Controls" SnapsToDevicePixels="True">
+
+    <!-- MASTER CONTENT -->
+    <Grid x:Name="grid_main" SnapsToDevicePixels="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="30" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18" />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="18" />
+        </Grid.RowDefinitions>
+
+        <ghost:ButtonImage
+            SnapsToDevicePixels="True"
+            InactiveImageFileName="icon_arrow_up_blue.png"
+            ActiveImageFileName="icon_arrow_up_click_blue.png"
+            HoverImageFileName="icon_arrow_up_hover_blue.png"
+            x:Name="Image_Up"
+            ClickButton="Image_Up_ClickButton"
+            Grid.Column="0"
+            Grid.Row="0" />
+
+        <ghost:ButtonImage
+            SnapsToDevicePixels="True"
+            InactiveImageFileName="icon_arrow_down_blue.png"
+            ActiveImageFileName="icon_arrow_down_click_blue.png"
+            HoverImageFileName="icon_arrow_down_hover_blue.png"
+            ClickButton="Image_down_ClickButton"
+            x:Name="Image_down"
+            Grid.Column="0"
+            Grid.Row="2" />
+
+        <TextBlock
+            SnapsToDevicePixels="True"
+            x:Name="text_opacity"
+            Text="100%"
+            Height="20"
+            Width="30"
+            Margin="2,6,0,0"
+            Grid.Column="1"
+            Grid.RowSpan="3"
+            Style="{StaticResource ButtonText}" />
+    </Grid>
+</UserControl>

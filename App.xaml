@@ -1,0 +1,220 @@
+﻿<Application x:Class="Ghost.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ghost="clr-namespace:Ghost.Controls"
+             xmlns:local="clr-namespace:Ghost"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- COLORS -->
+        <ghost:ArithmeticConverter x:Key="arithConverter" />
+
+        <SolidColorBrush x:Key="ToolBarBackground" Color="#546d85" />
+        <SolidColorBrush x:Key="ToolBarTopBackground" Color="#546d85" />
+        <SolidColorBrush x:Key="ImageBackground" Color="#555555" />
+
+        <!-- MINIMIZE BUTTON ANIMATION -->
+        <Storyboard x:Key="ImageFadeIn">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" SpeedRatio="3" AccelerationRatio="1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value=".7" />
+                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ImageFadeOut">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"  SpeedRatio="3" AccelerationRatio="1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Style TargetType="{x:Type Image}" x:Key="ButtonIcon">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        <!-- TOOLBAR ICONS -->
+        <Style x:Key="Icon"  TargetType="{x:Type Image}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+
+        <!-- TOOLBAR TEXT -->
+        <Style x:Key="ButtonText"  TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#777777" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <!-- TOOLBAR TOP TEXT -->
+        <Style x:Key="Label_Path"  TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#777777" />
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <!-- GLOBAL BUTTON STYLE -->
+
+        <Style TargetType="{x:Type CheckBox}" x:Key="SelectButton">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+
+                    <ControlTemplate  TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <ghost:Bitmap x:Name="ToolBarImage" />
+                            <ContentPresenter>
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{TemplateBinding Content}" SnapsToDevicePixels="True" TextWrapping="Wrap" Style="{StaticResource ButtonText}" Margin="5,0,0,0" />
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_click_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_click_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_hover_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_hover_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}" x:Key="MaximizScreen">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+
+                    <ControlTemplate  TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="ToolBarImage" Style="{StaticResource ButtonIcon}" />
+                            <ContentPresenter>
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" Style="{StaticResource ButtonText}" Margin="5,0,0,0" />
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_click_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_click_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_dot_hover_blue.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="ToolBarImage" Property="Source" Value="images/icon_minus_hover_red.png" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

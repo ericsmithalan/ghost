@@ -1,0 +1,66 @@
+﻿<UserControl
+    x:Class="Ghost.Controls.PhotoPreview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ghost="clr-namespace:Ghost.Controls"
+    Height="400" Width="300" SnapsToDevicePixels="True">
+    <Border
+        SnapsToDevicePixels="True"
+        x:Name="border_photoPreview"
+        BorderBrush="#ffffff"
+        Background="White"
+        Height="400"
+        Width="300"
+        BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="10"
+                Color="Black"
+                Opacity=".7"
+                ShadowDepth="0" />
+        </Border.Effect>
+
+        <StackPanel
+            SnapsToDevicePixels="True"
+            Orientation="Vertical"
+            Height="398"
+            Width="298">
+
+            <StackPanel.Background>
+                <LinearGradientBrush
+                    EndPoint="0.504,1.5"
+                    StartPoint="0.504,0.03">
+
+                    <GradientStop
+                        Color="#eef0f2"
+                        Offset="0" />
+                    <GradientStop
+                        Color="#c8d2e2"
+                        Offset="0.567" />
+                </LinearGradientBrush>
+            </StackPanel.Background>
+
+            <Border
+                SnapsToDevicePixels="True"
+                BorderBrush="#adb6bc"
+                BorderThickness="1"
+                Margin="10,10,10,0"
+                Height="350"
+                Background="White"
+                Padding="10"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center">
+
+                <ghost:Bitmap x:Name="image_main" />
+            </Border>
+
+            <TextBlock
+                SnapsToDevicePixels="True"
+                x:Name="text_fileName"
+                Style="{StaticResource ButtonText}"
+                TextAlignment="Center"
+                Margin="0,10,0,0"
+                FontWeight="Bold" />
+        </StackPanel>
+    </Border>
+</UserControl>

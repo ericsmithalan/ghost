@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Ghost.Controls.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="Auto"
+             Height="Auto"
+             HorizontalAlignment="Stretch"
+             Background="#f2f3f5"
+             Padding="40"
+             SnapsToDevicePixels="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="650"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Canvas Grid.Column="0" Grid.Row="0">
+
+            <TextBlock
+                SnapsToDevicePixels="True"
+                LineHeight="18"
+                VerticalAlignment="Top"
+                TextWrapping="Wrap"
+                Width="600"
+                LineStackingStrategy="MaxHeight">
+                <TextBlock Foreground="#1a63c3" FontSize="28" Width="600" Text="Welcome to Ghost" />
+				<TextBlock FontSize="14" Width="600" TextWrapping="Wrap" Text="The idea behind Ghost is to allow developers and testers to quickly verify their work against final designs. It also allows designers to quickly verify a developer's work. " />
+
+                   <TextBlock
+                        Margin="0,20,0,5"
+                        FontSize="16"
+                       SnapsToDevicePixels="True"
+
+                       Foreground="#1a63c3"
+                        TextWrapping="Wrap"
+                        MaxWidth="600">
+
+                        Get started by clicking on the folder icon in the toolbar.
+            </TextBlock>
+
+            <TextBlock
+
+                Canvas.Top="120"
+                FontSize="14"
+                SnapsToDevicePixels="True"
+                TextWrapping="Wrap"
+                MaxWidth="600">
+
+                Open a design comp and then overlay it on top of a developers work. Change the opacity in the toolbar and you will instantly see any issues.
+            </TextBlock>
+            </TextBlock>
+        </Canvas>
+
+        <Canvas Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+
+            <TextBlock
+                Width="200"
+                TextWrapping="Wrap"
+                SnapsToDevicePixels="True"
+                FontSize="14"
+                Foreground="#1a63c3">
+
+                Feature and Bug Reporting
+
+                 <TextBlock
+                     SnapsToDevicePixels="True"
+                Width="200"
+
+                TextWrapping="Wrap"
+                FontSize="14">
+
+                <Hyperlink  Foreground="#0994f6"
+                     TextDecorations="None"  NavigateUri="http://toolbox/ghost/Thread/View.aspx?ThreadId=9051">
+                    Report a bug
+                </Hyperlink>
+            </TextBlock>
+
+            <TextBlock
+                Width="200"
+
+                SnapsToDevicePixels="True"
+                TextWrapping="Wrap"
+                FontSize="14">
+
+                <Hyperlink  Foreground="#0994f6"
+                     TextDecorations="None" NavigateUri="http://toolbox/ghost/Thread/View.aspx?ThreadId=9050">
+                    Request a feature
+                </Hyperlink>
+            </TextBlock>
+            </TextBlock>
+        </Canvas>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
+</UserControl>

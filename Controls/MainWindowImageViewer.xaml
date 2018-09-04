@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="Ghost.Controls.MainWindowImageViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ghost="clr-namespace:Ghost.Controls">
+
+    <ScrollViewer
+            x:Name="scroll_image"
+            CanContentScroll="True"
+            SnapsToDevicePixels="True"
+            DockPanel.Dock="Top"
+            VerticalScrollBarVisibility="Auto"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalScrollBarVisibility="Auto"
+            MinWidth="946"
+            Focusable="False"
+            Width="{Binding Path=ActualWidth, ElementName=main_window,Converter={StaticResource arithConverter}, ConverterParameter=Int32.Parse(values[0])-4}"
+            MinHeight="521">
+
+        <ScrollViewer.Height>
+            <Binding
+                    x:Name="binding_scrollimage"
+                    Path="ActualHeight"
+                    ElementName="main_window"
+                    Converter="{StaticResource arithConverter}"
+                    ConverterParameter="Int32.Parse(values[0])-78">
+            </Binding>
+        </ScrollViewer.Height>
+
+        <ScrollViewer.Background>
+            <ImageBrush ImageSource="images/image_background.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,48,48" />
+        </ScrollViewer.Background>
+
+        <!-- IMAGE -->
+        <Image
+                Source="images/img_main.png"
+                x:Name="image_main"
+                Stretch="Uniform"
+                Margin="0"
+                RenderOptions.BitmapScalingMode="HighQuality"
+                RenderOptions.EdgeMode="Aliased"
+                Width="934"
+                Height="509"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <Image.ContextMenu>
+                <ContextMenu Name="cm">
+                    <MenuItem x:Name="menuItem_copyColor" Header="Copy HEX Color to clipboard" />
+                    <MenuItem x:Name="menuItem_copyColorRGB" Header="Copy RGB Color to clipboard" />
+                    <MenuItem x:Name="menuItem_copyImage" Header="Copy image" />
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
+    </ScrollViewer>
+</UserControl>
