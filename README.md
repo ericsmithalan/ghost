@@ -9,6 +9,3 @@ I Created this in 2009 but I may do another version that is more up to date, if 
 - VisualStudio
 - .Net 3.5
 - WPF
-
-### About
-Created in 2009
